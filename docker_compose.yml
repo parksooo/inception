@@ -1,0 +1,22 @@
+version : "3"
+	services:
+		nginx:
+		container_name: nginx
+		image: nginx
+		pull_policy: never
+		build: ./repuirments/nginx
+		port:
+			- "443:443"
+		networks:
+			- inception
+		volumes:
+			- wp-volume:/var/ww/
+		restart:
+			always
+	
+	services:
+		mariadb:
+		container_name: mariadb
+		image: mariadb
+		pull_policy: never
+		
