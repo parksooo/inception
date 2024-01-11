@@ -1,8 +1,9 @@
 version : "3"
- services:
-  nginx:
+
+services:
+	nginx:
 		container_name: nginx
-	 	image: nginx
+		image: nginx
 		pull_policy: never
 		build: ./requirments/nginx
 		port:
