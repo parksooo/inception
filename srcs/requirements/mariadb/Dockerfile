@@ -1,9 +1,9 @@
-FROM alpine:3.18.5
+FROM alpine:3.18.6
 
 RUN mkdir -p /run/mysqld
 RUN mkdir -p /var/lib/mysql
 
-RUN apk -update && apk upgrade
+RUN apk update && apk upgrade
 RUN apk add --no-cache mariadb mariadb-client tini
 
 COPY ./conf/deploy.sh /tmp/deploy.sh
@@ -15,12 +15,12 @@ RUN sed -i "s/skip-networking/skip-networking=0/g" /etc/my.cnf.d/mariadb-server.
 RUN sed -i "s/.*bind-address\s*=.*/bind-address=0.0.0.0/g" /etc/my.cnf.d/mariadb-server.cnf
 # bind-address 옵션 수정, 모든 IP 주소로부터의 연결 수락
 
-RUN mysql_intall_db --user=mysql \
+RUN mysql_install_db --user=mysql \
                     --basedir=/usr \
-                    --datadir=/vat/lib/mysql \
+                    --datadir=/var/lib/mysql \
                     --skip-test-db
 
-RUN chmod -x /tmp/deploy.sh
+RUN chmod +x /tmp/deploy.sh
 EXPOSE 3306
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["sh", "/tmp/deploy.sh"]

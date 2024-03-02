@@ -17,7 +17,7 @@ down:
 
 clean:
 	make down
-	docker system prune -a
+	docker system prune -af
 # 사용되지 않는 컨테이너, 네트워크, 이미지 등 구성요소를 제거
 
 fclean:
